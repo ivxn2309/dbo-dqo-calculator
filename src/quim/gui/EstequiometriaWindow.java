@@ -24,7 +24,13 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         addTabTo("Hidrogenados", "h", paneBinarios, 1);
         addTabTo("Sales       ", "sal", paneBinarios, 2);
         
+        addTabTo("Compuestos  ", "compuesto", paneTernarios, 0);
+        
+        addTabTo("Sales Neutras  ", "salneu", paneCuaternarios, 0);
+        
         desktopBinarios.setBorder(new BorderBackImage());
+        desktopTernarios.setBorder(new BorderBackImage());
+        desktopCuaternarios.setBorder(new BorderBackImage());
         
         JPanel objPanel = new ImagePanel("res/background5.jpg");
         objPanel.setSize(this.getWidth(), this.getHeight());
@@ -51,19 +57,32 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         panelBinarios = new javax.swing.JPanel();
         paneBinarios = new javax.swing.JTabbedPane();
         panelOxigenados = new javax.swing.JPanel();
-        jToolBar1 = new javax.swing.JToolBar();
+        toolBarOxi = new javax.swing.JToolBar();
         botonOxB = new javax.swing.JButton();
         botonOxA = new javax.swing.JButton();
         panelHidrogenados = new javax.swing.JPanel();
-        jToolBar3 = new javax.swing.JToolBar();
+        toolBarHidro = new javax.swing.JToolBar();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jToolBar2 = new javax.swing.JToolBar();
+        toolBarSal = new javax.swing.JToolBar();
         jButton3 = new javax.swing.JButton();
         desktopBinarios = new javax.swing.JDesktopPane();
         panelTernarios = new javax.swing.JPanel();
+        paneTernarios = new javax.swing.JTabbedPane();
+        panelCompuestosTernarios = new javax.swing.JPanel();
+        toolBarTernarios = new javax.swing.JToolBar();
+        botonOxacidos = new javax.swing.JButton();
+        botonHidrox = new javax.swing.JButton();
+        botonOxisal = new javax.swing.JButton();
+        desktopTernarios = new javax.swing.JDesktopPane();
         panelCuaternarios = new javax.swing.JPanel();
+        paneCuaternarios = new javax.swing.JTabbedPane();
+        panelCompuestosTernarios1 = new javax.swing.JPanel();
+        toolBarCuaternarios = new javax.swing.JToolBar();
+        botonHidrox1 = new javax.swing.JButton();
+        botonOxisal1 = new javax.swing.JButton();
+        desktopCuaternarios = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cálculos Estequiométricos");
@@ -75,87 +94,87 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         paneBinarios.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         paneBinarios.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
 
-        jToolBar1.setBorder(null);
-        jToolBar1.setFloatable(false);
-        jToolBar1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        toolBarOxi.setBorder(null);
+        toolBarOxi.setFloatable(false);
+        toolBarOxi.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         botonOxB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/oxb.png"))); // NOI18N
         botonOxB.setText("Óxidos Básicos");
         botonOxB.setFocusable(false);
         botonOxB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botonOxB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(botonOxB);
+        toolBarOxi.add(botonOxB);
 
         botonOxA.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/oxa.png"))); // NOI18N
         botonOxA.setText("Óxidos Ácidos");
         botonOxA.setFocusable(false);
         botonOxA.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botonOxA.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(botonOxA);
+        toolBarOxi.add(botonOxA);
 
         javax.swing.GroupLayout panelOxigenadosLayout = new javax.swing.GroupLayout(panelOxigenados);
         panelOxigenados.setLayout(panelOxigenadosLayout);
         panelOxigenadosLayout.setHorizontalGroup(
             panelOxigenadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+            .addComponent(toolBarOxi, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
         );
         panelOxigenadosLayout.setVerticalGroup(
             panelOxigenadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+            .addComponent(toolBarOxi, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
         );
 
         paneBinarios.addTab("tab1", panelOxigenados);
 
-        jToolBar3.setBorder(null);
-        jToolBar3.setFloatable(false);
-        jToolBar3.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        toolBarHidro.setBorder(null);
+        toolBarHidro.setFloatable(false);
+        toolBarHidro.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/hmet.png"))); // NOI18N
         jButton5.setText("Hidruros Metálicos");
         jButton5.setFocusable(false);
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar3.add(jButton5);
+        toolBarHidro.add(jButton5);
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/hnmet.png"))); // NOI18N
         jButton6.setText("Hidruros No Metálicos");
         jButton6.setFocusable(false);
         jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar3.add(jButton6);
+        toolBarHidro.add(jButton6);
 
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/hac.png"))); // NOI18N
         jButton7.setText("Ácidos Hidrácidos");
         jButton7.setFocusable(false);
         jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar3.add(jButton7);
+        toolBarHidro.add(jButton7);
 
         javax.swing.GroupLayout panelHidrogenadosLayout = new javax.swing.GroupLayout(panelHidrogenados);
         panelHidrogenados.setLayout(panelHidrogenadosLayout);
         panelHidrogenadosLayout.setHorizontalGroup(
             panelHidrogenadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+            .addComponent(toolBarHidro, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
         );
         panelHidrogenadosLayout.setVerticalGroup(
             panelHidrogenadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar3, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+            .addComponent(toolBarHidro, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
         );
 
         paneBinarios.addTab("tab2", panelHidrogenados);
 
-        jToolBar2.setBorder(null);
-        jToolBar2.setFloatable(false);
-        jToolBar2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        toolBarSal.setBorder(null);
+        toolBarSal.setFloatable(false);
+        toolBarSal.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/salbin.png"))); // NOI18N
         jButton3.setText("Sal Binaria");
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(jButton3);
+        toolBarSal.add(jButton3);
 
-        paneBinarios.addTab("tab4", jToolBar2);
+        paneBinarios.addTab("tab4", toolBarSal);
 
         javax.swing.GroupLayout desktopBinariosLayout = new javax.swing.GroupLayout(desktopBinarios);
         desktopBinarios.setLayout(desktopBinariosLayout);
@@ -180,34 +199,143 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         );
         panelBinariosLayout.setVerticalGroup(
             panelBinariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(paneBinarios, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+            .addComponent(paneBinarios)
             .addComponent(desktopBinarios)
         );
 
         paneCompuestos.addTab("tab1", panelBinarios);
 
+        paneTernarios.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        paneTernarios.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
+        paneTernarios.setPreferredSize(new java.awt.Dimension(318, 551));
+
+        toolBarTernarios.setBorder(null);
+        toolBarTernarios.setFloatable(false);
+        toolBarTernarios.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        botonOxacidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/oxacidos.png"))); // NOI18N
+        botonOxacidos.setText("Oxácidos");
+        botonOxacidos.setFocusable(false);
+        botonOxacidos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonOxacidos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBarTernarios.add(botonOxacidos);
+
+        botonHidrox.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/hidroxido.png"))); // NOI18N
+        botonHidrox.setText("Hidróxidos");
+        botonHidrox.setFocusable(false);
+        botonHidrox.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonHidrox.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBarTernarios.add(botonHidrox);
+
+        botonOxisal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/oxisal.png"))); // NOI18N
+        botonOxisal.setText("Oxisal");
+        botonOxisal.setFocusable(false);
+        botonOxisal.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonOxisal.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBarTernarios.add(botonOxisal);
+
+        javax.swing.GroupLayout panelCompuestosTernariosLayout = new javax.swing.GroupLayout(panelCompuestosTernarios);
+        panelCompuestosTernarios.setLayout(panelCompuestosTernariosLayout);
+        panelCompuestosTernariosLayout.setHorizontalGroup(
+            panelCompuestosTernariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(toolBarTernarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panelCompuestosTernariosLayout.setVerticalGroup(
+            panelCompuestosTernariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(toolBarTernarios, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+        );
+
+        paneTernarios.addTab("tab1", panelCompuestosTernarios);
+
+        javax.swing.GroupLayout desktopTernariosLayout = new javax.swing.GroupLayout(desktopTernarios);
+        desktopTernarios.setLayout(desktopTernariosLayout);
+        desktopTernariosLayout.setHorizontalGroup(
+            desktopTernariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 685, Short.MAX_VALUE)
+        );
+        desktopTernariosLayout.setVerticalGroup(
+            desktopTernariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout panelTernariosLayout = new javax.swing.GroupLayout(panelTernarios);
         panelTernarios.setLayout(panelTernariosLayout);
         panelTernariosLayout.setHorizontalGroup(
             panelTernariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1019, Short.MAX_VALUE)
+            .addGroup(panelTernariosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(paneTernarios, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(desktopTernarios))
         );
         panelTernariosLayout.setVerticalGroup(
             panelTernariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 551, Short.MAX_VALUE)
+            .addComponent(paneTernarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(desktopTernarios)
         );
 
         paneCompuestos.addTab("tab2", panelTernarios);
+
+        paneCuaternarios.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        paneCuaternarios.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
+        paneCuaternarios.setPreferredSize(new java.awt.Dimension(318, 551));
+
+        toolBarCuaternarios.setBorder(null);
+        toolBarCuaternarios.setFloatable(false);
+        toolBarCuaternarios.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        botonHidrox1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/salagua.png"))); // NOI18N
+        botonHidrox1.setText("Sal más Agua");
+        botonHidrox1.setFocusable(false);
+        botonHidrox1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonHidrox1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBarCuaternarios.add(botonHidrox1);
+
+        botonOxisal1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/oxisalagua.png"))); // NOI18N
+        botonOxisal1.setText("Oxisal mas Agua");
+        botonOxisal1.setFocusable(false);
+        botonOxisal1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonOxisal1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBarCuaternarios.add(botonOxisal1);
+
+        javax.swing.GroupLayout panelCompuestosTernarios1Layout = new javax.swing.GroupLayout(panelCompuestosTernarios1);
+        panelCompuestosTernarios1.setLayout(panelCompuestosTernarios1Layout);
+        panelCompuestosTernarios1Layout.setHorizontalGroup(
+            panelCompuestosTernarios1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(toolBarCuaternarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panelCompuestosTernarios1Layout.setVerticalGroup(
+            panelCompuestosTernarios1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(toolBarCuaternarios, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+        );
+
+        paneCuaternarios.addTab("tab1", panelCompuestosTernarios1);
+
+        javax.swing.GroupLayout desktopCuaternariosLayout = new javax.swing.GroupLayout(desktopCuaternarios);
+        desktopCuaternarios.setLayout(desktopCuaternariosLayout);
+        desktopCuaternariosLayout.setHorizontalGroup(
+            desktopCuaternariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 685, Short.MAX_VALUE)
+        );
+        desktopCuaternariosLayout.setVerticalGroup(
+            desktopCuaternariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout panelCuaternariosLayout = new javax.swing.GroupLayout(panelCuaternarios);
         panelCuaternarios.setLayout(panelCuaternariosLayout);
         panelCuaternariosLayout.setHorizontalGroup(
             panelCuaternariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1019, Short.MAX_VALUE)
+            .addGroup(panelCuaternariosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(paneCuaternarios, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(desktopCuaternarios))
         );
         panelCuaternariosLayout.setVerticalGroup(
             panelCuaternariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 551, Short.MAX_VALUE)
+            .addComponent(paneCuaternarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(desktopCuaternarios)
         );
 
         paneCompuestos.addTab("tab3", panelCuaternarios);
@@ -230,22 +358,35 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonHidrox;
+    private javax.swing.JButton botonHidrox1;
     private javax.swing.JButton botonOxA;
     private javax.swing.JButton botonOxB;
+    private javax.swing.JButton botonOxacidos;
+    private javax.swing.JButton botonOxisal;
+    private javax.swing.JButton botonOxisal1;
     private javax.swing.JDesktopPane desktopBinarios;
+    private javax.swing.JDesktopPane desktopCuaternarios;
+    private javax.swing.JDesktopPane desktopTernarios;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JToolBar jToolBar2;
-    private javax.swing.JToolBar jToolBar3;
     private javax.swing.JTabbedPane paneBinarios;
     private javax.swing.JTabbedPane paneCompuestos;
+    private javax.swing.JTabbedPane paneCuaternarios;
+    private javax.swing.JTabbedPane paneTernarios;
     private javax.swing.JPanel panelBinarios;
+    private javax.swing.JPanel panelCompuestosTernarios;
+    private javax.swing.JPanel panelCompuestosTernarios1;
     private javax.swing.JPanel panelCuaternarios;
     private javax.swing.JPanel panelHidrogenados;
     private javax.swing.JPanel panelOxigenados;
     private javax.swing.JPanel panelTernarios;
+    private javax.swing.JToolBar toolBarCuaternarios;
+    private javax.swing.JToolBar toolBarHidro;
+    private javax.swing.JToolBar toolBarOxi;
+    private javax.swing.JToolBar toolBarSal;
+    private javax.swing.JToolBar toolBarTernarios;
     // End of variables declaration//GEN-END:variables
 }
