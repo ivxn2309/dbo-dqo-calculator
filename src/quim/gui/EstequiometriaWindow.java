@@ -62,11 +62,11 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         botonOxA = new javax.swing.JButton();
         panelHidrogenados = new javax.swing.JPanel();
         toolBarHidro = new javax.swing.JToolBar();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        botonHidrM = new javax.swing.JButton();
+        botonHidrNM = new javax.swing.JButton();
+        botonAcidHidr = new javax.swing.JButton();
         toolBarSal = new javax.swing.JToolBar();
-        jButton3 = new javax.swing.JButton();
+        botonSalBin = new javax.swing.JButton();
         desktopBinarios = new javax.swing.JDesktopPane();
         panelTernarios = new javax.swing.JPanel();
         paneTernarios = new javax.swing.JTabbedPane();
@@ -97,14 +97,22 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         toolBarOxi.setBorder(null);
         toolBarOxi.setFloatable(false);
         toolBarOxi.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        toolBarOxi.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
 
+        botonOxB.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         botonOxB.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/oxb.png"))); // NOI18N
         botonOxB.setText("Óxidos Básicos");
         botonOxB.setFocusable(false);
         botonOxB.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         botonOxB.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonOxB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonOxBActionPerformed(evt);
+            }
+        });
         toolBarOxi.add(botonOxB);
 
+        botonOxA.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         botonOxA.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/oxa.png"))); // NOI18N
         botonOxA.setText("Óxidos Ácidos");
         botonOxA.setFocusable(false);
@@ -129,26 +137,26 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         toolBarHidro.setFloatable(false);
         toolBarHidro.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/hmet.png"))); // NOI18N
-        jButton5.setText("Hidruros Metálicos");
-        jButton5.setFocusable(false);
-        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        toolBarHidro.add(jButton5);
+        botonHidrM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/hmet.png"))); // NOI18N
+        botonHidrM.setText("Hidruros Metálicos");
+        botonHidrM.setFocusable(false);
+        botonHidrM.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonHidrM.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBarHidro.add(botonHidrM);
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/hnmet.png"))); // NOI18N
-        jButton6.setText("Hidruros No Metálicos");
-        jButton6.setFocusable(false);
-        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        toolBarHidro.add(jButton6);
+        botonHidrNM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/hnmet.png"))); // NOI18N
+        botonHidrNM.setText("Hidruros No Metálicos");
+        botonHidrNM.setFocusable(false);
+        botonHidrNM.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonHidrNM.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBarHidro.add(botonHidrNM);
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/hac.png"))); // NOI18N
-        jButton7.setText("Ácidos Hidrácidos");
-        jButton7.setFocusable(false);
-        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        toolBarHidro.add(jButton7);
+        botonAcidHidr.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/hac.png"))); // NOI18N
+        botonAcidHidr.setText("Ácidos Hidrácidos");
+        botonAcidHidr.setFocusable(false);
+        botonAcidHidr.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonAcidHidr.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBarHidro.add(botonAcidHidr);
 
         javax.swing.GroupLayout panelHidrogenadosLayout = new javax.swing.GroupLayout(panelHidrogenados);
         panelHidrogenados.setLayout(panelHidrogenadosLayout);
@@ -167,12 +175,12 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         toolBarSal.setFloatable(false);
         toolBarSal.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/salbin.png"))); // NOI18N
-        jButton3.setText("Sal Binaria");
-        jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        toolBarSal.add(jButton3);
+        botonSalBin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/salbin.png"))); // NOI18N
+        botonSalBin.setText("Sal Binaria");
+        botonSalBin.setFocusable(false);
+        botonSalBin.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonSalBin.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolBarSal.add(botonSalBin);
 
         paneBinarios.addTab("tab4", toolBarSal);
 
@@ -213,6 +221,7 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         toolBarTernarios.setFloatable(false);
         toolBarTernarios.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        botonOxacidos.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         botonOxacidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/oxacidos.png"))); // NOI18N
         botonOxacidos.setText("Oxácidos");
         botonOxacidos.setFocusable(false);
@@ -220,6 +229,7 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         botonOxacidos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         toolBarTernarios.add(botonOxacidos);
 
+        botonHidrox.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         botonHidrox.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/hidroxido.png"))); // NOI18N
         botonHidrox.setText("Hidróxidos");
         botonHidrox.setFocusable(false);
@@ -227,6 +237,7 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         botonHidrox.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         toolBarTernarios.add(botonHidrox);
 
+        botonOxisal.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         botonOxisal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/oxisal.png"))); // NOI18N
         botonOxisal.setText("Oxisal");
         botonOxisal.setFocusable(false);
@@ -356,8 +367,19 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botonOxBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOxBActionPerformed
+        CalculadorCompuestoBinario ccb 
+                = new CalculadorCompuestoBinario(CalculadorCompuestoBinario.OXIDOS_BASICOS);
+        ccb.setVisible(true);
+        desktopBinarios.add(ccb);
+        ccb.moveToFront();
+    }//GEN-LAST:event_botonOxBActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonAcidHidr;
+    private javax.swing.JButton botonHidrM;
+    private javax.swing.JButton botonHidrNM;
     private javax.swing.JButton botonHidrox;
     private javax.swing.JButton botonHidrox1;
     private javax.swing.JButton botonOxA;
@@ -365,13 +387,10 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
     private javax.swing.JButton botonOxacidos;
     private javax.swing.JButton botonOxisal;
     private javax.swing.JButton botonOxisal1;
+    private javax.swing.JButton botonSalBin;
     private javax.swing.JDesktopPane desktopBinarios;
     private javax.swing.JDesktopPane desktopCuaternarios;
     private javax.swing.JDesktopPane desktopTernarios;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JTabbedPane paneBinarios;
     private javax.swing.JTabbedPane paneCompuestos;
     private javax.swing.JTabbedPane paneCuaternarios;
