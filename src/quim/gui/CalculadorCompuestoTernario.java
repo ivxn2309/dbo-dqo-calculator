@@ -3,28 +3,16 @@ package quim.gui;
 import java.awt.Component;
 import java.awt.Dimension;
 
-public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
-    public static int OXIDOS_BASICOS = 0;
-    public static int OXIDOS_ACIDOS = 1;
-    public static int HIDRUROS_METALICOS = 2;
-    public static int HIDRUROS_NO_METALICOS = 3;
-    public static int ACIDOS_HIDRACIDOS = 4;
-    public static int SAL_BINARIA = 5;
+public class CalculadorCompuestoTernario extends javax.swing.JInternalFrame {
     
-    private final int tipo;
-    
-    public CalculadorCompuestoBinario(int tipo) {
+    public CalculadorCompuestoTernario() {
         initComponents();
         
         panelResultado.setVisible(false);
         panelCalculosExtra.setVisible(false);
         this.pack();
         
-        this.setSize(new Dimension(600, 180));
-        this.tipo = tipo;
-        
-        if(!(tipo == ACIDOS_HIDRACIDOS || tipo == SAL_BINARIA))
-            mostrarMas.setVisible(false);
+        this.setSize(new Dimension(730, 170));
     }
 
     @SuppressWarnings("unchecked")
@@ -42,6 +30,11 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         valenciaB = new javax.swing.JComboBox();
         subB = new javax.swing.JSpinner();
         calcular = new javax.swing.JButton();
+        labelPlus1 = new javax.swing.JLabel();
+        coefC = new javax.swing.JSpinner();
+        elementoC = new javax.swing.JComboBox();
+        subC = new javax.swing.JSpinner();
+        elementoD = new javax.swing.JComboBox();
         panelResultado = new javax.swing.JPanel();
         coefRes = new javax.swing.JLabel();
         nombreResultado = new javax.swing.JLabel();
@@ -73,9 +66,9 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Compuestos Binarios");
-        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/bin.png"))); // NOI18N
-        setPreferredSize(new java.awt.Dimension(600, 500));
+        setTitle("Compuestos ternarios");
+        setFrameIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/tri.png"))); // NOI18N
+        setPreferredSize(new java.awt.Dimension(730, 445));
 
         panelCalculos.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -83,8 +76,9 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         coefA.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
         coefA.setToolTipText("Coeficiente");
         coefA.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        coefA.setPreferredSize(new java.awt.Dimension(50, 60));
 
-        elementoA.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        elementoA.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         elementoA.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne" }));
         elementoA.setToolTipText("Elemento");
 
@@ -101,7 +95,7 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         coefB.setToolTipText("Coeficiente");
         coefB.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        elementoB.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
+        elementoB.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         elementoB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne" }));
         elementoB.setToolTipText("Elemento");
 
@@ -123,33 +117,65 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
             }
         });
 
+        labelPlus1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/plus.png"))); // NOI18N
+
+        coefC.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        coefC.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+        coefC.setToolTipText("Coeficiente");
+        coefC.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        coefC.setPreferredSize(new java.awt.Dimension(60, 60));
+
+        elementoC.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        elementoC.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne" }));
+        elementoC.setToolTipText("Elemento");
+        elementoC.setEnabled(false);
+
+        subC.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(2), Integer.valueOf(2), null, Integer.valueOf(1)));
+        subC.setEnabled(false);
+
+        elementoD.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        elementoD.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "O", "H", "He", "Li", "Be", "B", "C", "N", "F", "Ne" }));
+        elementoD.setToolTipText("Elemento");
+        elementoD.setEnabled(false);
+
         javax.swing.GroupLayout panelCalculosLayout = new javax.swing.GroupLayout(panelCalculos);
         panelCalculos.setLayout(panelCalculosLayout);
         panelCalculosLayout.setHorizontalGroup(
             panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCalculosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(coefA, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(coefA, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(elementoA, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(elementoA, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(subA, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelCalculosLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(valenciaA, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(subA, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelCalculosLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(labelPlus)))
-                .addGap(18, 18, 18)
-                .addComponent(coefB, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(elementoB, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(labelPlus))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(coefB, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(elementoB, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(valenciaB, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(subB, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                    .addGroup(panelCalculosLayout.createSequentialGroup()
+                        .addGroup(panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelPlus1)
+                            .addComponent(valenciaB, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(coefC, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(elementoC, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(elementoD, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelCalculosLayout.createSequentialGroup()
+                        .addComponent(subB, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(subC, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52)))
                 .addComponent(calcular, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -158,33 +184,50 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
             .addGroup(panelCalculosLayout.createSequentialGroup()
                 .addGroup(panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCalculosLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(elementoA)
-                            .addComponent(coefA, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelCalculosLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(valenciaA, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelPlus, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(subA, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelCalculosLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelCalculosLayout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(elementoB, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(coefB, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(panelCalculosLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(valenciaA, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCalculosLayout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(valenciaB, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(55, 55, 55)
-                                .addComponent(subB, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCalculosLayout.createSequentialGroup()
+                                .addComponent(labelPlus1)
+                                .addGap(11, 11, 11))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCalculosLayout.createSequentialGroup()
+                                .addComponent(labelPlus)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCalculosLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(elementoB, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(coefB, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(coefC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(subA, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(subB, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34))
+            .addGroup(panelCalculosLayout.createSequentialGroup()
+                .addGroup(panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCalculosLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
+                        .addGap(31, 31, 31)
+                        .addGroup(panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(coefA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(elementoA))
+                            .addGroup(panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(elementoC, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(elementoD, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(subC, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelCalculosLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
                         .addComponent(calcular)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelResultado.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -195,7 +238,7 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
 
         nombreResultado.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         nombreResultado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nombreResultado.setText("<html>Bióxido de <br>Carbono</html>");
+        nombreResultado.setText("<html>Trióxido de <br>Carbono</html>");
 
         mostrarMas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/more.png"))); // NOI18N
         mostrarMas.setText("Más");
@@ -214,10 +257,10 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
             panelResultadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelResultadoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(coefRes, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(coefRes, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nombreResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(nombreResultado)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(mostrarMas)
                 .addContainerGap())
         );
@@ -349,15 +392,13 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         panelSolventesLayout.setHorizontalGroup(
             panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSolventesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblSoluto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(soluto, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                    .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblSolvente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(solvente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblSoluto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSolvente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(soluto, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                    .addComponent(solvente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(lblMoleculas1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
@@ -376,39 +417,40 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         panelSolventesLayout.setVerticalGroup(
             panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSolventesLayout.createSequentialGroup()
-                .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelSolventesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblMoles1)
-                            .addComponent(resPorcentual))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblGramos1)
-                            .addComponent(resMolalidad)))
-                    .addGroup(panelSolventesLayout.createSequentialGroup()
-                        .addComponent(lblSoluto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(soluto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelSolventesLayout.createSequentialGroup()
-                        .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblLitros1)
-                            .addComponent(resMolaridad))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblMoleculas1)
-                            .addComponent(resNormalidad)))
-                    .addGroup(panelSolventesLayout.createSequentialGroup()
-                        .addComponent(lblSolvente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(solvente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panelSolventesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(nuevo)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSolventesLayout.createSequentialGroup()
+                        .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelSolventesLayout.createSequentialGroup()
+                                .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblMoles1)
+                                    .addComponent(resPorcentual))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblGramos1)
+                                    .addComponent(resMolalidad)))
+                            .addGroup(panelSolventesLayout.createSequentialGroup()
+                                .addComponent(lblSoluto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(soluto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelSolventesLayout.createSequentialGroup()
+                                .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblLitros1)
+                                    .addComponent(resMolaridad))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblMoleculas1)
+                                    .addComponent(resNormalidad)))
+                            .addGroup(panelSolventesLayout.createSequentialGroup()
+                                .addComponent(lblSolvente)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(solvente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelSolventesLayout.createSequentialGroup()
+                        .addComponent(nuevo)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout panelCalculosExtraLayout = new javax.swing.GroupLayout(panelCalculosExtra);
@@ -427,8 +469,8 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
             .addGroup(panelCalculosExtraLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelCalculosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelSolventes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelDatosExtra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelDatosExtra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelSolventes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -442,13 +484,12 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(panelCalculos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelCalculos, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelResultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelCalculosExtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
+                .addComponent(panelCalculosExtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -456,7 +497,7 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
 
     private void calcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularActionPerformed
         panelResultado.setVisible(true);
-        this.setSize(new Dimension(600, 280));
+        this.setSize(new Dimension(730, 280));
     }//GEN-LAST:event_calcularActionPerformed
 
     private void mostrarMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarMasActionPerformed
@@ -464,7 +505,7 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         for(Component com : panelCalculos.getComponents()){
             com.setEnabled(false);
         }
-        this.setSize(new Dimension(600, 448));
+        this.setSize(new Dimension(730, 448));
     }//GEN-LAST:event_mostrarMasActionPerformed
 
     private void nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoActionPerformed
@@ -474,7 +515,7 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         for(Component com : panelCalculos.getComponents()){
             com.setEnabled(true);
         }
-        this.setSize(new Dimension(600, 180));
+        this.setSize(new Dimension(730, 170));
     }//GEN-LAST:event_nuevoActionPerformed
 
 
@@ -482,10 +523,14 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
     private javax.swing.JButton calcular;
     private javax.swing.JSpinner coefA;
     private javax.swing.JSpinner coefB;
+    private javax.swing.JSpinner coefC;
     private javax.swing.JLabel coefRes;
     private javax.swing.JComboBox elementoA;
     private javax.swing.JComboBox elementoB;
+    private javax.swing.JComboBox elementoC;
+    private javax.swing.JComboBox elementoD;
     private javax.swing.JLabel labelPlus;
+    private javax.swing.JLabel labelPlus1;
     private javax.swing.JLabel lblGramos;
     private javax.swing.JLabel lblGramos1;
     private javax.swing.JLabel lblLitros;
@@ -516,6 +561,7 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
     private javax.swing.JSpinner solvente;
     private javax.swing.JSpinner subA;
     private javax.swing.JSpinner subB;
+    private javax.swing.JSpinner subC;
     private javax.swing.JComboBox valenciaA;
     private javax.swing.JComboBox valenciaB;
     // End of variables declaration//GEN-END:variables
