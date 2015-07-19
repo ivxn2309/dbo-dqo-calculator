@@ -1,6 +1,10 @@
 package quim.gui;
 
+import java.awt.Component;
 import java.awt.Toolkit;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -80,8 +84,8 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         paneCuaternarios = new javax.swing.JTabbedPane();
         panelCompuestosTernarios1 = new javax.swing.JPanel();
         toolBarCuaternarios = new javax.swing.JToolBar();
-        botonHidrox1 = new javax.swing.JButton();
-        botonOxisal1 = new javax.swing.JButton();
+        botonSalAgua = new javax.swing.JButton();
+        botonOxisalAgua = new javax.swing.JButton();
         desktopCuaternarios = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -335,29 +339,29 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         toolBarCuaternarios.setFloatable(false);
         toolBarCuaternarios.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        botonHidrox1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/salagua.png"))); // NOI18N
-        botonHidrox1.setText("Sal más Agua");
-        botonHidrox1.setFocusable(false);
-        botonHidrox1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botonHidrox1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        botonHidrox1.addActionListener(new java.awt.event.ActionListener() {
+        botonSalAgua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/salagua.png"))); // NOI18N
+        botonSalAgua.setText("Sal más Agua");
+        botonSalAgua.setFocusable(false);
+        botonSalAgua.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonSalAgua.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonSalAgua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonHidrox1ActionPerformed(evt);
+                botonSalAguaActionPerformed(evt);
             }
         });
-        toolBarCuaternarios.add(botonHidrox1);
+        toolBarCuaternarios.add(botonSalAgua);
 
-        botonOxisal1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/oxisalagua.png"))); // NOI18N
-        botonOxisal1.setText("Oxisal mas Agua");
-        botonOxisal1.setFocusable(false);
-        botonOxisal1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        botonOxisal1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        botonOxisal1.addActionListener(new java.awt.event.ActionListener() {
+        botonOxisalAgua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/oxisalagua.png"))); // NOI18N
+        botonOxisalAgua.setText("Oxisal mas Agua");
+        botonOxisalAgua.setFocusable(false);
+        botonOxisalAgua.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        botonOxisalAgua.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        botonOxisalAgua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonOxisal1ActionPerformed(evt);
+                botonOxisalAguaActionPerformed(evt);
             }
         });
-        toolBarCuaternarios.add(botonOxisal1);
+        toolBarCuaternarios.add(botonOxisalAgua);
 
         javax.swing.GroupLayout panelCompuestosTernarios1Layout = new javax.swing.GroupLayout(panelCompuestosTernarios1);
         panelCompuestosTernarios1.setLayout(panelCompuestosTernarios1Layout);
@@ -418,92 +422,173 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonOxBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOxBActionPerformed
-        CalculadorCompuestoBinario ccb 
-                = new CalculadorCompuestoBinario(CalculadorCompuestoBinario.OXIDOS_BASICOS);
-        ccb.setVisible(true);
-        desktopBinarios.add(ccb);
-        ccb.moveToFront();
+        try {
+            CalculadorCompuestoBinario ccb
+                    = new CalculadorCompuestoBinario(CalculadorCompuestoBinario.OXIDOS_BASICOS);
+            ccb.setVisible(true);
+            ccb.setName("OxB");
+            boolean exists = false;
+            for(Component com : desktopBinarios.getAllFrames()) {
+                if(com.getName() != null && com.getName().equals("OxB"))
+                    exists = true;
+            }
+            if(!exists)
+                desktopBinarios.add("OxB", ccb);
+            ccb.moveToFront();
+        } catch (IOException ex) {
+            Logger.getLogger(EstequiometriaWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botonOxBActionPerformed
 
     private void botonOxAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOxAActionPerformed
-        CalculadorCompuestoBinario ccb 
-                = new CalculadorCompuestoBinario(CalculadorCompuestoBinario.OXIDOS_ACIDOS);
-        ccb.setVisible(true);
-        desktopBinarios.add(ccb);
-        ccb.moveToFront();
+        try {
+            CalculadorCompuestoBinario ccb
+                    = new CalculadorCompuestoBinario(CalculadorCompuestoBinario.OXIDOS_ACIDOS);
+            ccb.setVisible(true);
+            ccb.setName("OxA");
+            for(Component com : desktopBinarios.getComponents()) {
+                if(com.getName() != null && com.getName().equals("OxA"))
+                    return;
+            }
+            desktopBinarios.add("OxA", ccb);
+            ccb.moveToFront();
+        } catch (IOException ex) {
+            Logger.getLogger(EstequiometriaWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botonOxAActionPerformed
 
     private void botonHidrMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonHidrMActionPerformed
-        CalculadorCompuestoBinario ccb 
-                = new CalculadorCompuestoBinario(CalculadorCompuestoBinario.HIDRUROS_METALICOS);
-        ccb.setVisible(true);
-        desktopBinarios.add(ccb);
-        ccb.moveToFront();
+        try {
+            CalculadorCompuestoBinario ccb
+                    = new CalculadorCompuestoBinario(CalculadorCompuestoBinario.HIDRUROS_METALICOS);
+            ccb.setVisible(true);
+            ccb.setName("HiM");
+            for(Component com : desktopBinarios.getComponents()) {
+                if(com.getName().equals("HiM"))
+                    return;
+            }
+            desktopBinarios.add("HiM", ccb);
+            ccb.moveToFront();
+        } catch (IOException ex) {
+            Logger.getLogger(EstequiometriaWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botonHidrMActionPerformed
 
     private void botonHidrNMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonHidrNMActionPerformed
-        CalculadorCompuestoBinario ccb 
-                = new CalculadorCompuestoBinario(CalculadorCompuestoBinario.HIDRUROS_NO_METALICOS);
-        ccb.setVisible(true);
-        desktopBinarios.add(ccb);
-        ccb.moveToFront();
+        try {
+            CalculadorCompuestoBinario ccb
+                    = new CalculadorCompuestoBinario(CalculadorCompuestoBinario.HIDRUROS_NO_METALICOS);
+            ccb.setVisible(true);
+            ccb.setName("HnM");
+            for(Component com : desktopBinarios.getComponents()) {
+                if(com.getName().equals("HnM"))
+                    return;
+            }
+            desktopBinarios.add("HnM", ccb);
+            ccb.moveToFront();
+        } catch (IOException ex) {
+            Logger.getLogger(EstequiometriaWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botonHidrNMActionPerformed
 
     private void botonAcidHidrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAcidHidrActionPerformed
-        CalculadorCompuestoBinario ccb 
-                = new CalculadorCompuestoBinario(CalculadorCompuestoBinario.ACIDOS_HIDRACIDOS);
-        ccb.setVisible(true);
-        desktopBinarios.add(ccb);
-        ccb.moveToFront();
+        try {
+            CalculadorCompuestoBinario ccb
+                    = new CalculadorCompuestoBinario(CalculadorCompuestoBinario.ACIDOS_HIDRACIDOS);
+            ccb.setVisible(true);
+            ccb.setName("AcH");
+            for(Component com : desktopBinarios.getComponents()) {
+                if(com.getName().equals("AcH"))
+                    return;
+            }
+            desktopBinarios.add("AcH", ccb);
+            ccb.moveToFront();
+        } catch (IOException ex) {
+            Logger.getLogger(EstequiometriaWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botonAcidHidrActionPerformed
 
     private void botonSalBinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalBinActionPerformed
-        CalculadorCompuestoBinario ccb 
-                = new CalculadorCompuestoBinario(CalculadorCompuestoBinario.SAL_BINARIA);
-        ccb.setVisible(true);
-        desktopBinarios.add(ccb);
-        ccb.moveToFront();
+        try {
+            CalculadorCompuestoBinario ccb
+                    = new CalculadorCompuestoBinario(CalculadorCompuestoBinario.SAL_BINARIA);
+            ccb.setVisible(true);
+            ccb.setName("SaB");
+            for(Component com : desktopBinarios.getComponents()) {
+                if(com.getName().equals("SaB"))
+                    return;
+            }
+            desktopBinarios.add("SaB", ccb);
+            ccb.moveToFront();
+        } catch (IOException ex) {
+            Logger.getLogger(EstequiometriaWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botonSalBinActionPerformed
 
     private void botonOxacidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOxacidosActionPerformed
         CalculadorCompuestoTernario cct 
                 = new CalculadorCompuestoTernario();
         cct.setVisible(true);
-        desktopTernarios.add(cct);
+        cct.setName("OiA");
+        for(Component com : desktopTernarios.getComponents()) {
+            if(com.getName().equals("OiA"))
+                return;
+        }
+        desktopTernarios.add("OiA", cct);
         cct.moveToFront();
     }//GEN-LAST:event_botonOxacidosActionPerformed
 
     private void botonHidroxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonHidroxActionPerformed
         CalculadorCompuestoTernario2 cct 
-                = new CalculadorCompuestoTernario2();
+                = new CalculadorCompuestoTernario2(0);
         cct.setVisible(true);
-        desktopTernarios.add(cct);
+        cct.setName("HxA");
+        for(Component com : desktopTernarios.getComponents()) {
+            if(com.getName().equals("HxA"))
+                return;
+        }
+        desktopTernarios.add("HxA", cct);
         cct.moveToFront();
     }//GEN-LAST:event_botonHidroxActionPerformed
 
     private void botonOxisalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOxisalActionPerformed
         CalculadorCompuestoTernario2 cct 
-                = new CalculadorCompuestoTernario2();
+                = new CalculadorCompuestoTernario2(1);
         cct.setVisible(true);
-        desktopTernarios.add(cct);
+        cct.setName("OxS");
+        for(Component com : desktopTernarios.getComponents()) {
+            if(com.getName().equals("OxS"))
+                return;
+        }
+        desktopTernarios.add("OxS", cct);
         cct.moveToFront();
     }//GEN-LAST:event_botonOxisalActionPerformed
 
-    private void botonHidrox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonHidrox1ActionPerformed
+    private void botonSalAguaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalAguaActionPerformed
         CalculadorCompuestoCuaternario ccc 
                 = new CalculadorCompuestoCuaternario();
         ccc.setVisible(true);
-        desktopCuaternarios.add(ccc);
+        ccc.setName("SaA");
+        for(Component com : desktopCuaternarios.getComponents()) {
+            if(com.getName().equals("SaA"))
+                return;
+        }
+        desktopCuaternarios.add("SaA", ccc);
         ccc.moveToFront();
-    }//GEN-LAST:event_botonHidrox1ActionPerformed
+    }//GEN-LAST:event_botonSalAguaActionPerformed
 
-    private void botonOxisal1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOxisal1ActionPerformed
+    private void botonOxisalAguaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOxisalAguaActionPerformed
         CalculadorCompuestoCuaternario2 ccc2 
                 = new CalculadorCompuestoCuaternario2();
         ccc2.setVisible(true);
-        desktopCuaternarios.add(ccc2);
+        ccc2.setName("OsA");
+        for(Component com : desktopCuaternarios.getComponents()) {
+            if(com.getName().equals("OsA"))
+                return;
+        }
+        desktopCuaternarios.add("OsA", ccc2);
         ccc2.moveToFront();
-    }//GEN-LAST:event_botonOxisal1ActionPerformed
+    }//GEN-LAST:event_botonOxisalAguaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -511,12 +596,12 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
     private javax.swing.JButton botonHidrM;
     private javax.swing.JButton botonHidrNM;
     private javax.swing.JButton botonHidrox;
-    private javax.swing.JButton botonHidrox1;
     private javax.swing.JButton botonOxA;
     private javax.swing.JButton botonOxB;
     private javax.swing.JButton botonOxacidos;
     private javax.swing.JButton botonOxisal;
-    private javax.swing.JButton botonOxisal1;
+    private javax.swing.JButton botonOxisalAgua;
+    private javax.swing.JButton botonSalAgua;
     private javax.swing.JButton botonSalBin;
     private javax.swing.JDesktopPane desktopBinarios;
     private javax.swing.JDesktopPane desktopCuaternarios;

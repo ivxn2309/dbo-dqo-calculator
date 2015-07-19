@@ -11,7 +11,7 @@ public class CalculadorCompuestoCuaternario2 extends javax.swing.JInternalFrame 
         panelResultado.setVisible(false);
         panelCalculosExtra.setVisible(false);
         this.pack();
-        
+        this.setTitle("Oxisal mas agua");
         this.setSize(new Dimension(851, 170));
     }
 

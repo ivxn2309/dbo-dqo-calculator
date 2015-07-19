@@ -5,13 +5,16 @@ import java.awt.Dimension;
 
 public class CalculadorCompuestoTernario2 extends javax.swing.JInternalFrame {
 
-    public CalculadorCompuestoTernario2() {
+    public CalculadorCompuestoTernario2(int type) {
 
         initComponents();
         
         panelResultado.setVisible(false);
         panelCalculosExtra.setVisible(false);
         this.pack();
+        this.setTitle("Hidróxidos");
+        if(type == 1)
+            this.setTitle("Oxisales");
         
         this.setSize(new Dimension(730, 170));
     }

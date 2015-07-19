@@ -1,18 +1,37 @@
 package quim.gui;
 
 import java.awt.Toolkit;
+import java.io.IOException;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import quim.connection.ServiceConnector;
 import quim.utilidades.ImagePanel;
 
 public class MainFrame extends javax.swing.JFrame {
 
-    public MainFrame() {
+    public MainFrame() throws IOException {
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("res/icon.png"));
         initComponents();
         JPanel objPanel = new ImagePanel("res/background5.jpg");
         objPanel.setSize(this.getWidth(), this.getHeight());
         this.add(objPanel);
         this.validate();
+        initConnection();
+    }
+    
+    private void initConnection() throws IOException {
+        JButton [] buttons = {botonDBO, botonDQO, botonEstequiometria, botonMacromedidor};
+        ServiceConnector service = ServiceConnector.getInstance();
+        boolean isAvailable = service.testConnection();
+        
+        for (JButton button : buttons) {
+            button.setEnabled(isAvailable);
+        }
+        
+        if(!isAvailable) {
+            JOptionPane.showMessageDialog(this, "Hay un problema con el servidor", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     @SuppressWarnings("unchecked")

@@ -11,7 +11,7 @@ public class CalculadorCompuestoCuaternario extends javax.swing.JInternalFrame {
         panelResultado.setVisible(false);
         panelCalculosExtra.setVisible(false);
         this.pack();
-        
+        this.setTitle("Sal mas agua");
         this.setSize(new Dimension(754, 170));
     }
 

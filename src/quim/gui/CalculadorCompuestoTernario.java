@@ -11,6 +11,7 @@ public class CalculadorCompuestoTernario extends javax.swing.JInternalFrame {
         panelResultado.setVisible(false);
         panelCalculosExtra.setVisible(false);
         this.pack();
+        this.setTitle("Oxácidos");
         
         this.setSize(new Dimension(730, 170));
     }
