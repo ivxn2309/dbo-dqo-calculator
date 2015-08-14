@@ -52,7 +52,7 @@ public class ValenciaConnector extends ServiceConnector {
         
         List<Integer> nums = new ArrayList<>();
         for(String val : separated) {
-            if(val != null)
+            if(val != null && !val.equals("null"))
                 nums.add(Integer.parseInt(val));
         }
         return nums;

@@ -1,5 +1,6 @@
 package quim.gui;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
@@ -9,11 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.event.ChangeListener;
 import javax.swing.JComboBox;
+import javax.swing.event.ChangeEvent;
+import quim.connection.CompuestoConnector;
 import quim.connection.ElementConnector;
 import quim.connection.ValenciaConnector;
 import quim.entities.Elemento;
-import quim.entities.Valencia;
 
 public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
     public static final int OXIDOS_BASICOS = 0;
@@ -22,11 +25,13 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
     public static final int HIDRUROS_NO_METALICOS = 3;
     public static final int ACIDOS_HIDRACIDOS = 4;
     public static final int SAL_BINARIA = 5;
+    public static final int PEROXIDOS = 6;
     
-    private final int tipo;
+    private int tipo;
     
-    private ElementConnector elemConn;
-    private ValenciaConnector valeConn;
+    private final ElementConnector elemConn;
+    private final ValenciaConnector valeConn;
+    private final CompuestoConnector compConn;
     
     List<Elemento> elementosA;
     List<Elemento> elementosB;
@@ -36,6 +41,7 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         
         elemConn = ElementConnector.getInstance();
         valeConn = ValenciaConnector.getInstance();
+        compConn = CompuestoConnector.getInstance();
         
         panelResultado.setVisible(false);
         panelCalculosExtra.setVisible(false);
@@ -48,25 +54,77 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
             mostrarMas.setVisible(false);
         
         initElements();
-        elementoA.addItemListener(getListener());
-        elementoB.addItemListener(getListener());
+        elementoA.addItemListener(getElementListener());
+        elementoB.addItemListener(getElementListener());
+        
+        valenciaA.addItemListener(getValenciaListener());
+        valenciaB.addItemListener(getValenciaListener());
+        
+        subA.addChangeListener(getChangeListener());
+        subB.addChangeListener(getChangeListener());
+        
+        updateFormulaStatus();
         
         this.setTitle(this.getTitleFromType());
         this.validate();
     }
     
-    public final ItemListener getListener() {
+    public final ChangeListener getChangeListener() {
+        ChangeListener listener = (ChangeEvent e) -> {
+            updateFormulaStatus();
+        };
+        return listener;
+    }
+    
+    public final ItemListener getValenciaListener() {
+        ItemListener listener = (ItemEvent e) -> {
+            updateFormulaStatus();
+        };
+        return listener;
+    }
+    
+    public final ItemListener getElementListener() {
         ItemListener listener = (ItemEvent e) -> {
             try {
                 valenciaA.removeAllItems();
                 valenciaB.removeAllItems();
                 fitComboValencia(((Elemento)elementoA.getSelectedItem()).getSimbolo(), valenciaA, true);
                 fitComboValencia(((Elemento)elementoB.getSelectedItem()).getSimbolo(), valenciaB, false);
+                updateFormulaStatus();
             } catch (IOException ex) {
                 Logger.getLogger(CalculadorCompuestoBinario.class.getName()).log(Level.SEVERE, null, ex);
             }
         };
         return listener;
+    }
+    
+    private void updateFormulaStatus(){
+        String elementA = ((Elemento) elementoA.getSelectedItem()).getNombre();
+        String elementB = ((Elemento) elementoB.getSelectedItem()).getNombre();
+        
+        int valA = 0;
+        int valB = 0;
+        //System.out.println("ElemA: " + elementoA.getSelectedItem().toString());
+        //System.out.println("ValA: " + valenciaA.getSelectedItem().toString());
+        if (valenciaA.getSelectedItem() != null)
+            valA = Integer.parseInt(valenciaA.getSelectedItem().toString());
+        if (valenciaB.getSelectedItem() != null)
+            valB = Integer.parseInt(valenciaB.getSelectedItem().toString());
+        
+        int subidxA = ((Integer) this.subA.getValue());
+        int subidxB = ((Integer) this.subB.getValue());
+        
+        boolean isBalanced = (subidxA * valA + subidxB * valB) == 0;
+        String balance = isBalanced ? "El compuesto esta balanceado" : "El compuesto no tiene balance";
+        
+        statusFormula.setText(elementA + " + " +elementB + " :: " + balance);
+        if(!isBalanced) {
+            statusFormula.setForeground(Color.red);
+        }
+        else {
+            statusFormula.setForeground(Color.black);
+        }
+        calcular.setEnabled(isBalanced);
     }
     
     public final String getTitleFromType(){
@@ -102,8 +160,9 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         valenciaB = new javax.swing.JComboBox();
         subB = new javax.swing.JSpinner();
         calcular = new javax.swing.JButton();
+        statusFormula = new javax.swing.JLabel();
         panelResultado = new javax.swing.JPanel();
-        coefRes = new javax.swing.JLabel();
+        formulaRes = new javax.swing.JLabel();
         nombreResultado = new javax.swing.JLabel();
         mostrarMas = new javax.swing.JButton();
         panelCalculosExtra = new javax.swing.JPanel();
@@ -189,33 +248,40 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
             }
         });
 
+        statusFormula.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        statusFormula.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        statusFormula.setText("...");
+
         javax.swing.GroupLayout panelCalculosLayout = new javax.swing.GroupLayout(panelCalculos);
         panelCalculos.setLayout(panelCalculosLayout);
         panelCalculosLayout.setHorizontalGroup(
             panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCalculosLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCalculosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(coefA, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(elementoA, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addGroup(panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(statusFormula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelCalculosLayout.createSequentialGroup()
-                        .addComponent(subA, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(coefA, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelPlus))
-                    .addComponent(valenciaA, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(coefB, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(elementoB, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(valenciaB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(subB, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(calcular, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(elementoA, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addGroup(panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelCalculosLayout.createSequentialGroup()
+                                .addComponent(subA, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelPlus))
+                            .addComponent(valenciaA, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(coefB, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(elementoB, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(valenciaB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(subB, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(calcular, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(14, 14, 14))
         );
         panelCalculosLayout.setVerticalGroup(
             panelCalculosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,14 +312,16 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
                             .addComponent(elementoA)
                             .addComponent(coefA, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(statusFormula)
+                .addContainerGap())
         );
 
         panelResultado.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        coefRes.setFont(new java.awt.Font("Century Gothic", 1, 36)); // NOI18N
-        coefRes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        coefRes.setText("<html>H<sub><big>2</big></sub>O</html>");
+        formulaRes.setFont(new java.awt.Font("Century Gothic", 0, 36)); // NOI18N
+        formulaRes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        formulaRes.setText("<html>H<sub><big>2</big></sub>O</html>");
 
         nombreResultado.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         nombreResultado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -276,10 +344,10 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
             panelResultadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelResultadoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(coefRes, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(formulaRes, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(nombreResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nombreResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
                 .addComponent(mostrarMas)
                 .addContainerGap())
         );
@@ -290,7 +358,7 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
                 .addGroup(panelResultadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelResultadoLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
-                        .addComponent(coefRes))
+                        .addComponent(formulaRes))
                     .addGroup(panelResultadoLayout.createSequentialGroup()
                         .addGroup(panelResultadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(mostrarMas)
@@ -517,10 +585,39 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void calcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularActionPerformed
-        panelResultado.setVisible(true);
-        this.setSize(new Dimension(660, 280));
+        if(tipo == OXIDOS_BASICOS) {
+            int valencia = (Integer)valenciaB.getSelectedItem();
+            if (valencia == -1)
+                tipo = PEROXIDOS;
+        }
+        
+        try {
+            String compuestoStr = coefA.getValue() +":"+ ((Elemento) elementoA.getSelectedItem()).getNombre() + ":" + subA.getValue() + ":" +
+                    coefB.getValue() +":"+ ((Elemento) elementoB.getSelectedItem()).getNombre() + ":" + subB.getValue();
+            
+            String formula = buildFormula();
+            
+            String answer = compConn.getCompuestoName(compuestoStr, tipo);
+            nombreResultado.setText(answer);
+            formulaRes.setText(formula);
+            panelResultado.setVisible(true);
+            this.setSize(new Dimension(660, 280));
+        } catch (IOException ex) {
+            Logger.getLogger(CalculadorCompuestoBinario.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_calcularActionPerformed
-
+    
+    private String buildFormula() {
+        String subidxA = (Integer)subA.getValue() < 2 ? "" : subA.getValue().toString();
+        String subidxB = (Integer)subB.getValue() < 2 ? "" : subB.getValue().toString();
+        
+        String formula = "<html>" + ((Elemento) elementoA.getSelectedItem()).getSimbolo() + 
+                "<sub><small>" + subidxA + "</small></sub>" + 
+                ((Elemento) elementoB.getSelectedItem()).getSimbolo() + 
+                "<sub><small>" + subidxB + "</small></sub></html>";
+        return formula;
+    }
+    
     private void mostrarMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarMasActionPerformed
         panelCalculosExtra.setVisible(true);
         for(Component com : panelCalculos.getComponents()){
@@ -544,9 +641,9 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
     private javax.swing.JButton calcular;
     private javax.swing.JSpinner coefA;
     private javax.swing.JSpinner coefB;
-    private javax.swing.JLabel coefRes;
     private javax.swing.JComboBox elementoA;
     private javax.swing.JComboBox elementoB;
+    private javax.swing.JLabel formulaRes;
     private javax.swing.JLabel labelPlus;
     private javax.swing.JLabel lblGramos;
     private javax.swing.JLabel lblGramos1;
@@ -576,6 +673,7 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel resPorcentual;
     private javax.swing.JSpinner soluto;
     private javax.swing.JSpinner solvente;
+    private javax.swing.JLabel statusFormula;
     private javax.swing.JSpinner subA;
     private javax.swing.JSpinner subB;
     private javax.swing.JComboBox valenciaA;
@@ -591,7 +689,7 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
                 elementosB.add(elemConn.getElement("O"));
                 break;    
             case OXIDOS_ACIDOS:
-                elementosA = elemConn.getElementsByType("no-metal");
+                elementosA = elemConn.getElementsByType("¬metal");
                 elementosB.add(elemConn.getElement("O"));
                 break;
             case HIDRUROS_METALICOS:
@@ -608,7 +706,7 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
                 break;
             case SAL_BINARIA:
                 elementosA = elemConn.getElementsByType("metal");
-                elementosB = elemConn.getElementsByType("no-metal");
+                elementosB = elemConn.getElementsByType("¬metal");
                 break;
         }
         
@@ -650,7 +748,7 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
     private void fitComboValencia(String elem, JComboBox combo, boolean isLeft) throws IOException {
         List<Integer> valencias = valeConn.getValuesOf(elem);
         if(valencias.isEmpty()) {
-            combo.addItem("0");
+            //combo.addItem("");
         }
         else if(isLeft) {
             valencias.stream().filter((vale) -> (vale > 0)).forEach((vale) -> { 
@@ -661,6 +759,11 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
             valencias.stream().filter((vale) -> (vale < 0)).forEach((vale) -> { 
                 combo.addItem(vale);
             });
-        } 
+        }
+        //Si es un oxido acido, se sabe de antemano que estara presente el oxigeno
+        if(tipo == OXIDOS_ACIDOS) {
+            //Por lo tanto eliminamos la valencia que no corresponde
+            valenciaB.removeItem(-1);
+        }
     }
 }

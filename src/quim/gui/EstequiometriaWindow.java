@@ -1,12 +1,14 @@
 package quim.gui;
 
 import java.awt.Component;
+import java.awt.Frame;
 import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -91,6 +93,7 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cálculos Estequiométricos");
         setLocationByPlatform(true);
+        setMinimumSize(new java.awt.Dimension(1250, 600));
         setResizable(false);
 
         paneCompuestos.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
