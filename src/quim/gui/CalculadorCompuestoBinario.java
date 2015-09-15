@@ -7,6 +7,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,6 +18,7 @@ import quim.connection.CompuestoConnector;
 import quim.connection.ElementConnector;
 import quim.connection.ValenciaConnector;
 import quim.entities.Elemento;
+import quim.entities.Valencia;
 
 public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
     public static final int OXIDOS_BASICOS = 0;
@@ -50,8 +52,8 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         this.setSize(new Dimension(600, 180));
         this.tipo = tipo;
         
-        if(!(tipo == ACIDOS_HIDRACIDOS || tipo == SAL_BINARIA))
-            mostrarMas.setVisible(false);
+        //if(!(tipo == ACIDOS_HIDRACIDOS || tipo == SAL_BINARIA))
+            //mostrarMas.setVisible(false);
         
         initElements();
         elementoA.addItemListener(getElementListener());
@@ -62,6 +64,8 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         
         subA.addChangeListener(getChangeListener());
         subB.addChangeListener(getChangeListener());
+        coefA.addChangeListener(getChangeListener());
+        coefB.addChangeListener(getChangeListener());
         
         updateFormulaStatus();
         
@@ -69,6 +73,7 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         this.validate();
     }
     
+    //Gestor de cambios para coeficientes y subindices
     public final ChangeListener getChangeListener() {
         ChangeListener listener = (ChangeEvent e) -> {
             updateFormulaStatus();
@@ -76,6 +81,7 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         return listener;
     }
     
+    //Gestor de cambios para valencias
     public final ItemListener getValenciaListener() {
         ItemListener listener = (ItemEvent e) -> {
             updateFormulaStatus();
@@ -83,6 +89,7 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         return listener;
     }
     
+    //Gestor de cambios para los elementos
     public final ItemListener getElementListener() {
         ItemListener listener = (ItemEvent e) -> {
             try {
@@ -98,6 +105,7 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         return listener;
     }
     
+    //Metodo que es llamado para verificar el balance de la formula
     private void updateFormulaStatus(){
         String elementA = ((Elemento) elementoA.getSelectedItem()).getNombre();
         String elementB = ((Elemento) elementoB.getSelectedItem()).getNombre();
@@ -111,10 +119,12 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         if (valenciaB.getSelectedItem() != null)
             valB = Integer.parseInt(valenciaB.getSelectedItem().toString());
         
-        int subidxA = ((Integer) this.subA.getValue());
-        int subidxB = ((Integer) this.subB.getValue());
+        int subidxA = (Integer) this.subA.getValue();
+        int subidxB = (Integer) this.subB.getValue();
+        int coeficientA = (Integer)coefA.getValue();
+        int coeficientB = (Integer)coefB.getValue();
         
-        boolean isBalanced = (subidxA * valA + subidxB * valB) == 0;
+        boolean isBalanced = (coeficientA * subidxA * valA + coeficientB * subidxB * valB) == 0;
         String balance = isBalanced ? "El compuesto esta balanceado" : "El compuesto no tiene balance";
         
         statusFormula.setText(elementA + " + " +elementB + " :: " + balance);
@@ -127,6 +137,7 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         calcular.setEnabled(isBalanced);
     }
     
+    //Determina el titulo de la ventana interna en base a la opción elegida
     public final String getTitleFromType(){
         switch(tipo) {
             case 0:
@@ -166,29 +177,39 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         nombreResultado = new javax.swing.JLabel();
         mostrarMas = new javax.swing.JButton();
         panelCalculosExtra = new javax.swing.JPanel();
-        panelDatosExtra = new javax.swing.JPanel();
         lblMoles = new javax.swing.JLabel();
-        lblGramos = new javax.swing.JLabel();
-        lblLitros = new javax.swing.JLabel();
-        lblMoleculas = new javax.swing.JLabel();
         resMoles = new javax.swing.JLabel();
+        lblGramos = new javax.swing.JLabel();
         resGramos = new javax.swing.JLabel();
-        resLitros = new javax.swing.JLabel();
+        lblMoleculas = new javax.swing.JLabel();
         resMoleculas = new javax.swing.JLabel();
-        panelSolventes = new javax.swing.JPanel();
-        lblLitros1 = new javax.swing.JLabel();
-        resMolaridad = new javax.swing.JLabel();
-        lblGramos1 = new javax.swing.JLabel();
-        resMolalidad = new javax.swing.JLabel();
-        lblMoleculas1 = new javax.swing.JLabel();
-        resNormalidad = new javax.swing.JLabel();
-        lblMoles1 = new javax.swing.JLabel();
-        resPorcentual = new javax.swing.JLabel();
-        lblSoluto = new javax.swing.JLabel();
-        soluto = new javax.swing.JSpinner();
-        lblSolvente = new javax.swing.JLabel();
-        solvente = new javax.swing.JSpinner();
+        resLitros = new javax.swing.JLabel();
+        lblLitros = new javax.swing.JLabel();
+        lblUMA = new javax.swing.JLabel();
+        resUMA = new javax.swing.JLabel();
         nuevo = new javax.swing.JButton();
+        panelSolventes = new javax.swing.JPanel();
+        panelMolaridad = new javax.swing.JPanel();
+        lblSoluto1 = new javax.swing.JLabel();
+        solutoMolalidad = new javax.swing.JSpinner();
+        solventeMolalidad = new javax.swing.JSpinner();
+        lblSolvente1 = new javax.swing.JLabel();
+        resMolalidad1 = new javax.swing.JLabel();
+        calculaMolalidad = new javax.swing.JButton();
+        panelMolalidad = new javax.swing.JPanel();
+        lblSoluto = new javax.swing.JLabel();
+        solutoMolaridad = new javax.swing.JSpinner();
+        solucionMolaridad = new javax.swing.JSpinner();
+        lblSolucion = new javax.swing.JLabel();
+        resMolaridad = new javax.swing.JLabel();
+        calculaMolaridad = new javax.swing.JButton();
+        panelNormalidad = new javax.swing.JPanel();
+        lblSoluto2 = new javax.swing.JLabel();
+        solutoMolaridad1 = new javax.swing.JSpinner();
+        solucionMolaridad1 = new javax.swing.JSpinner();
+        lblSolucion1 = new javax.swing.JLabel();
+        resMolaridad1 = new javax.swing.JLabel();
+        calculaNormalidad = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -369,98 +390,30 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
 
         panelCalculosExtra.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        panelDatosExtra.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos extra"));
-
         lblMoles.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblMoles.setText("Moles:");
+
+        resMoles.setText("000");
 
         lblGramos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblGramos.setText("Gramos:");
 
-        lblLitros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblLitros.setText("Litros:");
+        resGramos.setText("000");
 
         lblMoleculas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblMoleculas.setText("Moleculas:");
 
-        resMoles.setText("000");
-
-        resGramos.setText("000");
+        resMoleculas.setText("000");
 
         resLitros.setText("000");
 
-        resMoleculas.setText("000");
+        lblLitros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblLitros.setText("Litros:");
 
-        javax.swing.GroupLayout panelDatosExtraLayout = new javax.swing.GroupLayout(panelDatosExtra);
-        panelDatosExtra.setLayout(panelDatosExtraLayout);
-        panelDatosExtraLayout.setHorizontalGroup(
-            panelDatosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDatosExtraLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelDatosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(lblMoleculas, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                    .addComponent(lblLitros, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblGramos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblMoles, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelDatosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(resMoles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(resGramos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-                    .addComponent(resLitros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(resMoleculas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        panelDatosExtraLayout.setVerticalGroup(
-            panelDatosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDatosExtraLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelDatosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMoles)
-                    .addComponent(resMoles))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelDatosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblGramos)
-                    .addComponent(resGramos))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelDatosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblLitros)
-                    .addComponent(resLitros))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelDatosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMoleculas)
-                    .addComponent(resMoleculas))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        lblUMA.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblUMA.setText("U.M.A.");
 
-        panelSolventes.setBorder(javax.swing.BorderFactory.createTitledBorder("Calculos Extra"));
-
-        lblLitros1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblLitros1.setText("Molaridad:");
-
-        resMolaridad.setText("000");
-
-        lblGramos1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblGramos1.setText("Molalidad:");
-
-        resMolalidad.setText("000");
-
-        lblMoleculas1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblMoleculas1.setText("Normalidad:");
-
-        resNormalidad.setText("000");
-
-        lblMoles1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblMoles1.setText("Porcentual:");
-
-        resPorcentual.setText("000");
-
-        lblSoluto.setText("Soluto");
-
-        soluto.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(0.1d)));
-
-        lblSolvente.setText("Solvente");
-
-        solvente.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(0.1d)));
+        resUMA.setText("000");
 
         nuevo.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         nuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/quim/img/new.png"))); // NOI18N
@@ -474,71 +427,17 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
             }
         });
 
+        panelSolventes.setBorder(javax.swing.BorderFactory.createTitledBorder("Calculos Extra"));
+
         javax.swing.GroupLayout panelSolventesLayout = new javax.swing.GroupLayout(panelSolventes);
         panelSolventes.setLayout(panelSolventesLayout);
         panelSolventesLayout.setHorizontalGroup(
             panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSolventesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblSoluto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(soluto, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                    .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblSolvente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(solvente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(lblMoleculas1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, Short.MAX_VALUE)
-                        .addComponent(lblLitros1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblGramos1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(lblMoles1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(resMolaridad, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                    .addComponent(resMolalidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(resPorcentual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(resNormalidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nuevo))
+            .addGap(0, 74, Short.MAX_VALUE)
         );
         panelSolventesLayout.setVerticalGroup(
             panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSolventesLayout.createSequentialGroup()
-                .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelSolventesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblMoles1)
-                            .addComponent(resPorcentual))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblGramos1)
-                            .addComponent(resMolalidad)))
-                    .addGroup(panelSolventesLayout.createSequentialGroup()
-                        .addComponent(lblSoluto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(soluto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelSolventesLayout.createSequentialGroup()
-                        .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblLitros1)
-                            .addComponent(resMolaridad))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelSolventesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblMoleculas1)
-                            .addComponent(resNormalidad)))
-                    .addGroup(panelSolventesLayout.createSequentialGroup()
-                        .addComponent(lblSolvente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(solvente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panelSolventesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(nuevo)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGap(0, 18, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelCalculosExtraLayout = new javax.swing.GroupLayout(panelCalculosExtra);
@@ -546,20 +445,215 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         panelCalculosExtraLayout.setHorizontalGroup(
             panelCalculosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCalculosExtraLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelDatosExtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addGroup(panelCalculosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelCalculosExtraLayout.createSequentialGroup()
+                        .addComponent(lblGramos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(resGramos)
+                        .addGap(57, 57, 57)
+                        .addComponent(lblMoleculas, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelCalculosExtraLayout.createSequentialGroup()
+                        .addComponent(lblMoles, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(resMoles)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblLitros, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelSolventes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelCalculosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(resMoleculas)
+                    .addComponent(resLitros))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelSolventes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(nuevo)
                 .addContainerGap())
+            .addGroup(panelCalculosExtraLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblUMA, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(resUMA, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelCalculosExtraLayout.setVerticalGroup(
             panelCalculosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCalculosExtraLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelCalculosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelSolventes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelDatosExtra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelCalculosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUMA)
+                    .addComponent(resUMA))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelCalculosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelCalculosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(nuevo)
+                        .addComponent(panelSolventes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelCalculosExtraLayout.createSequentialGroup()
+                        .addGroup(panelCalculosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblLitros)
+                            .addComponent(resLitros)
+                            .addComponent(lblMoles)
+                            .addComponent(resMoles))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelCalculosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelCalculosExtraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblGramos)
+                                .addComponent(resGramos)
+                                .addComponent(lblMoleculas))
+                            .addComponent(resMoleculas))))
+                .addGap(30, 30, 30))
+        );
+
+        panelMolaridad.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Molalidad", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+
+        lblSoluto1.setText("Soluto");
+
+        solutoMolalidad.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(0.1d)));
+
+        solventeMolalidad.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(0.1d)));
+
+        lblSolvente1.setText("Solvente");
+
+        resMolalidad1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        resMolalidad1.setText("0000000.0000");
+
+        calculaMolalidad.setText("Calcular");
+
+        javax.swing.GroupLayout panelMolaridadLayout = new javax.swing.GroupLayout(panelMolaridad);
+        panelMolaridad.setLayout(panelMolaridadLayout);
+        panelMolaridadLayout.setHorizontalGroup(
+            panelMolaridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMolaridadLayout.createSequentialGroup()
+                .addGroup(panelMolaridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelMolaridadLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelMolaridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSoluto1)
+                            .addComponent(lblSolvente1))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelMolaridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(solventeMolalidad, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                            .addComponent(solutoMolalidad)))
+                    .addGroup(panelMolaridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(calculaMolalidad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(resMolalidad1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)))
+                .addGap(0, 0, 0))
+        );
+        panelMolaridadLayout.setVerticalGroup(
+            panelMolaridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMolaridadLayout.createSequentialGroup()
+                .addGroup(panelMolaridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSoluto1)
+                    .addComponent(solutoMolalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelMolaridadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(solventeMolalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSolvente1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(calculaMolalidad)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(resMolalidad1))
+        );
+
+        panelMolalidad.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Molaridad", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+
+        lblSoluto.setText("Soluto");
+
+        solutoMolaridad.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(0.1d)));
+
+        solucionMolaridad.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(0.1d)));
+
+        lblSolucion.setText("Solucion");
+
+        resMolaridad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        resMolaridad.setText("0000000.0000");
+
+        calculaMolaridad.setText("Calcular");
+
+        javax.swing.GroupLayout panelMolalidadLayout = new javax.swing.GroupLayout(panelMolalidad);
+        panelMolalidad.setLayout(panelMolalidadLayout);
+        panelMolalidadLayout.setHorizontalGroup(
+            panelMolalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMolalidadLayout.createSequentialGroup()
+                .addGroup(panelMolalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelMolalidadLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelMolalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSoluto)
+                            .addComponent(lblSolucion))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelMolalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(solucionMolaridad, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                            .addComponent(solutoMolaridad)))
+                    .addGroup(panelMolalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(calculaMolaridad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(resMolaridad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)))
+                .addGap(0, 0, 0))
+        );
+        panelMolalidadLayout.setVerticalGroup(
+            panelMolalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMolalidadLayout.createSequentialGroup()
+                .addGroup(panelMolalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSoluto)
+                    .addComponent(solutoMolaridad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelMolalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(solucionMolaridad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSolucion))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(calculaMolaridad)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(resMolaridad))
+        );
+
+        panelNormalidad.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Normalidad", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+
+        lblSoluto2.setText("Soluto");
+
+        solutoMolaridad1.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(0.1d)));
+
+        solucionMolaridad1.setModel(new javax.swing.SpinnerNumberModel(Double.valueOf(0.0d), Double.valueOf(0.0d), null, Double.valueOf(0.1d)));
+
+        lblSolucion1.setText("Solucion");
+
+        resMolaridad1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        resMolaridad1.setText("0000000.0000");
+
+        calculaNormalidad.setText("Calcular");
+
+        javax.swing.GroupLayout panelNormalidadLayout = new javax.swing.GroupLayout(panelNormalidad);
+        panelNormalidad.setLayout(panelNormalidadLayout);
+        panelNormalidadLayout.setHorizontalGroup(
+            panelNormalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelNormalidadLayout.createSequentialGroup()
+                .addGroup(panelNormalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelNormalidadLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelNormalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSoluto2)
+                            .addComponent(lblSolucion1))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelNormalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(solucionMolaridad1, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                            .addComponent(solutoMolaridad1)))
+                    .addGroup(panelNormalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(calculaNormalidad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(resMolaridad1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)))
+                .addGap(0, 0, 0))
+        );
+        panelNormalidadLayout.setVerticalGroup(
+            panelNormalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelNormalidadLayout.createSequentialGroup()
+                .addGroup(panelNormalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSoluto2)
+                    .addComponent(solutoMolaridad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelNormalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(solucionMolaridad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSolucion1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(calculaNormalidad)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(resMolaridad1))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -569,6 +663,12 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
             .addComponent(panelResultado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panelCalculosExtra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panelCalculos, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelMolaridad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelMolalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(panelNormalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -578,12 +678,18 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
                 .addComponent(panelResultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelCalculosExtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelNormalidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelMolalidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelMolaridad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Este metodo es llamado al presionar el boton calcular
     private void calcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularActionPerformed
         if(tipo == OXIDOS_BASICOS) {
             int valencia = (Integer)valenciaB.getSelectedItem();
@@ -607,14 +713,17 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_calcularActionPerformed
     
+    //Construye la formula a partir de los elementos seleccionados
     private String buildFormula() {
-        String subidxA = (Integer)subA.getValue() < 2 ? "" : subA.getValue().toString();
-        String subidxB = (Integer)subB.getValue() < 2 ? "" : subB.getValue().toString();
+        int coefiA = (Integer)coefA.getValue();
+        int coefiB = (Integer)coefB.getValue();
+        String subidxA = (Integer)subA.getValue() * coefiA < 2 ? "" : (Integer)subA.getValue() * coefiA + "";
+        String subidxB = (Integer)subB.getValue() * coefiB < 2 ? "" : (Integer)subB.getValue() * coefiB + "";
+        String elemA = ((Elemento) elementoA.getSelectedItem()).getSimbolo();
+        String elemB = ((Elemento) elementoB.getSelectedItem()).getSimbolo();
         
-        String formula = "<html>" + ((Elemento) elementoA.getSelectedItem()).getSimbolo() + 
-                "<sub><small>" + subidxA + "</small></sub>" + 
-                ((Elemento) elementoB.getSelectedItem()).getSimbolo() + 
-                "<sub><small>" + subidxB + "</small></sub></html>";
+        String formula = "<html>" + elemA + "<sub><small>" + subidxA + "</small></sub>" + 
+                elemB + "<sub><small>" + subidxB + "</small></sub></html>";
         return formula;
     }
     
@@ -623,7 +732,7 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         for(Component com : panelCalculos.getComponents()){
             com.setEnabled(false);
         }
-        this.setSize(new Dimension(660, 448));
+        this.setSize(new Dimension(660, 605));
     }//GEN-LAST:event_mostrarMasActionPerformed
 
     private void nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoActionPerformed
@@ -638,6 +747,9 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton calculaMolalidad;
+    private javax.swing.JButton calculaMolaridad;
+    private javax.swing.JButton calculaNormalidad;
     private javax.swing.JButton calcular;
     private javax.swing.JSpinner coefA;
     private javax.swing.JSpinner coefB;
@@ -646,33 +758,40 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel formulaRes;
     private javax.swing.JLabel labelPlus;
     private javax.swing.JLabel lblGramos;
-    private javax.swing.JLabel lblGramos1;
     private javax.swing.JLabel lblLitros;
-    private javax.swing.JLabel lblLitros1;
     private javax.swing.JLabel lblMoleculas;
-    private javax.swing.JLabel lblMoleculas1;
     private javax.swing.JLabel lblMoles;
-    private javax.swing.JLabel lblMoles1;
+    private javax.swing.JLabel lblSolucion;
+    private javax.swing.JLabel lblSolucion1;
     private javax.swing.JLabel lblSoluto;
-    private javax.swing.JLabel lblSolvente;
+    private javax.swing.JLabel lblSoluto1;
+    private javax.swing.JLabel lblSoluto2;
+    private javax.swing.JLabel lblSolvente1;
+    private javax.swing.JLabel lblUMA;
     private javax.swing.JButton mostrarMas;
     private javax.swing.JLabel nombreResultado;
     private javax.swing.JButton nuevo;
     private javax.swing.JPanel panelCalculos;
     private javax.swing.JPanel panelCalculosExtra;
-    private javax.swing.JPanel panelDatosExtra;
+    private javax.swing.JPanel panelMolalidad;
+    private javax.swing.JPanel panelMolaridad;
+    private javax.swing.JPanel panelNormalidad;
     private javax.swing.JPanel panelResultado;
     private javax.swing.JPanel panelSolventes;
     private javax.swing.JLabel resGramos;
     private javax.swing.JLabel resLitros;
-    private javax.swing.JLabel resMolalidad;
+    private javax.swing.JLabel resMolalidad1;
     private javax.swing.JLabel resMolaridad;
+    private javax.swing.JLabel resMolaridad1;
     private javax.swing.JLabel resMoleculas;
     private javax.swing.JLabel resMoles;
-    private javax.swing.JLabel resNormalidad;
-    private javax.swing.JLabel resPorcentual;
-    private javax.swing.JSpinner soluto;
-    private javax.swing.JSpinner solvente;
+    private javax.swing.JLabel resUMA;
+    private javax.swing.JSpinner solucionMolaridad;
+    private javax.swing.JSpinner solucionMolaridad1;
+    private javax.swing.JSpinner solutoMolalidad;
+    private javax.swing.JSpinner solutoMolaridad;
+    private javax.swing.JSpinner solutoMolaridad1;
+    private javax.swing.JSpinner solventeMolalidad;
     private javax.swing.JLabel statusFormula;
     private javax.swing.JSpinner subA;
     private javax.swing.JSpinner subB;
@@ -689,8 +808,14 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
                 elementosB.add(elemConn.getElement("O"));
                 break;    
             case OXIDOS_ACIDOS:
-                elementosA = elemConn.getElementsByType("¬metal");
+                elementosA = elemConn.getElementsByType("¬metal?exclude=gas-noble");
                 elementosB.add(elemConn.getElement("O"));
+                //Se agregan los anfoteros 
+                List<Elemento> anfoteros = getAnfoteros();
+                System.out.println("Anfo: " + anfoteros);
+                anfoteros.stream().forEach((elem) -> {
+                    elementosA.add(elem);
+                });
                 break;
             case HIDRUROS_METALICOS:
                 elementosA = elemConn.getElementsByType("metal");
@@ -706,7 +831,11 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
                 break;
             case SAL_BINARIA:
                 elementosA = elemConn.getElementsByType("metal");
-                elementosB = elemConn.getElementsByType("¬metal");
+                elementosB = elemConn.getElementsByType("¬metal?exclude=gas-noble");
+                Elemento removible = elemConn.getElement("H");
+                elementosB.remove(removible);
+                removible = elemConn.getElement("O");
+                elementosB.remove(removible);
                 break;
         }
         
@@ -745,6 +874,15 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         return elementos;
     }
     
+    private List<Elemento> getAnfoteros() throws IOException {
+        String simbolos [] = {"Be", "Al", "Bi", "Ti", "V", "Ga", "Co", "Mn", "Fe", "Pd", "Mo", "Ni", "Pt", "Zn", "Sn", "W", "U", "Cr", "In", "Pb", "Zr"};
+        List<Elemento> elementos = new ArrayList<>();
+        for(String e : simbolos) {
+            elementos.add(elemConn.getElement(e));
+        }
+        return elementos;
+    }
+    
     private void fitComboValencia(String elem, JComboBox combo, boolean isLeft) throws IOException {
         List<Integer> valencias = valeConn.getValuesOf(elem);
         if(valencias.isEmpty()) {
@@ -764,6 +902,22 @@ public class CalculadorCompuestoBinario extends javax.swing.JInternalFrame {
         if(tipo == OXIDOS_ACIDOS) {
             //Por lo tanto eliminamos la valencia que no corresponde
             valenciaB.removeItem(-1);
+            if(elem.equals("F")){
+                combo.addItem(1);
+                combo.addItem(3);
+                combo.addItem(5);
+                combo.addItem(7);
+            }
+            
+            String anfoteros = "Be, Al, Bi, Ti, V, Ga, Co, Mn, Fe, Pd, Mo, Ni, Pt, Zn, Sn, W, U, Cr, In, Pb, Zr";
+            if(anfoteros.contains(elem)) {
+                combo.removeAllItems();
+                int max = valencias.get(0);
+                for(Integer val : valencias){
+                    if(val > max) max = val;
+                }
+                combo.addItem(max);
+            }
         }
     }
 }

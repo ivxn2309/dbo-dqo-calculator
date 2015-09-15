@@ -31,6 +31,20 @@ public class CompuestoConnector extends ServiceConnector {
         return "";
     }
     
+    public String getDataCompuesto(String compuesto) throws MalformedURLException, IOException {
+        
+        //Unidad de masa atomica
+        url = new URL(URL_BASE + "elementos/weight/" + compuesto);
+        connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestProperty("Accept", "text/plain");
+        int code = connection.getResponseCode();
+        if(code == HttpURLConnection.HTTP_OK) {
+            input = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            return input.readLine();            
+        }
+        return null;
+    }
+    
     // Singleton
     private static final CompuestoConnector INSTANCE = new CompuestoConnector();
     public static CompuestoConnector getInstance() {

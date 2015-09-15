@@ -36,6 +36,13 @@
           <Component id="panelResultado" alignment="0" max="32767" attributes="0"/>
           <Component id="panelCalculosExtra" alignment="0" max="32767" attributes="0"/>
           <Component id="panelCalculos" alignment="0" pref="648" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="panelMolaridad" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="panelMolalidad" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+              <Component id="panelNormalidad" min="-2" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -46,7 +53,13 @@
               <Component id="panelResultado" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelCalculosExtra" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="42" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="panelNormalidad" max="32767" attributes="0"/>
+                  <Component id="panelMolalidad" max="32767" attributes="0"/>
+                  <Component id="panelMolaridad" alignment="0" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -159,7 +172,7 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Coeficiente"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor Por defecto"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
         </Component>
@@ -226,7 +239,7 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Coeficiente"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor Por defecto"/>
+              <Color id="Default Cursor"/>
             </Property>
           </Properties>
         </Component>
@@ -397,11 +410,40 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="lblGramos" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="resGramos" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                          <Component id="lblMoleculas" min="-2" pref="60" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="lblMoles" min="-2" pref="48" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="resMoles" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="lblLitros" min="-2" pref="60" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="panelDatosExtra" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="resMoleculas" min="-2" max="-2" attributes="0"/>
+                      <Component id="resLitros" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="panelSolventes" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="nuevo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="panelSolventes" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lblUMA" min="-2" pref="69" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="resUMA" min="-2" pref="80" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -409,122 +451,112 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="panelSolventes" max="32767" attributes="0"/>
-                      <Component id="panelDatosExtra" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblUMA" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="resUMA" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="nuevo" min="-2" max="-2" attributes="0"/>
+                          <Component id="panelSolventes" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblLitros" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="resLitros" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblMoles" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="resMoles" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="lblGramos" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="resGramos" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblMoleculas" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="resMoleculas" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="panelDatosExtra">
+        <Component class="javax.swing.JLabel" name="lblMoles">
           <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Datos extra"/>
-              </Border>
-            </Property>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Moles:"/>
           </Properties>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="lblMoleculas" pref="60" max="32767" attributes="0"/>
-                          <Component id="lblLitros" alignment="0" max="32767" attributes="0"/>
-                          <Component id="lblGramos" alignment="0" max="32767" attributes="0"/>
-                          <Component id="lblMoles" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="resMoles" max="32767" attributes="0"/>
-                          <Component id="resGramos" alignment="1" pref="73" max="32767" attributes="0"/>
-                          <Component id="resLitros" alignment="0" max="32767" attributes="0"/>
-                          <Component id="resMoleculas" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblMoles" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="resMoles" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblGramos" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="resGramos" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblLitros" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="resLitros" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblMoleculas" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="resMoleculas" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="lblMoles">
-              <Properties>
-                <Property name="horizontalAlignment" type="int" value="4"/>
-                <Property name="text" type="java.lang.String" value="Moles:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblGramos">
-              <Properties>
-                <Property name="horizontalAlignment" type="int" value="4"/>
-                <Property name="text" type="java.lang.String" value="Gramos:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblLitros">
-              <Properties>
-                <Property name="horizontalAlignment" type="int" value="4"/>
-                <Property name="text" type="java.lang.String" value="Litros:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblMoleculas">
-              <Properties>
-                <Property name="horizontalAlignment" type="int" value="4"/>
-                <Property name="text" type="java.lang.String" value="Moleculas:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="resMoles">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="000"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="resGramos">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="000"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="resLitros">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="000"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="resMoleculas">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="000"/>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
+        </Component>
+        <Component class="javax.swing.JLabel" name="resMoles">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="000"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblGramos">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Gramos:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="resGramos">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="000"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblMoleculas">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Moleculas:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="resMoleculas">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="000"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="resLitros">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="000"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblLitros">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Litros:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblUMA">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="U.M.A."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="resUMA">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="000"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="nuevo">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Century Gothic" size="11" style="0"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/quim/img/new.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Nuevo"/>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nuevoActionPerformed"/>
+          </Events>
+        </Component>
         <Container class="javax.swing.JPanel" name="panelSolventes">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -537,178 +569,295 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="lblSoluto" max="32767" attributes="0"/>
-                              <Component id="soluto" pref="100" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="lblSolvente" alignment="0" max="32767" attributes="0"/>
-                              <Component id="solvente" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="lblMoleculas1" alignment="1" pref="60" max="32767" attributes="0"/>
-                              <Component id="lblLitros1" alignment="0" max="32767" attributes="0"/>
-                              <Component id="lblGramos1" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="lblMoles1" alignment="1" min="-2" pref="69" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="resMolaridad" alignment="0" pref="80" max="32767" attributes="0"/>
-                          <Component id="resMolalidad" alignment="0" max="32767" attributes="0"/>
-                          <Component id="resPorcentual" alignment="0" max="32767" attributes="0"/>
-                          <Component id="resNormalidad" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="nuevo" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <EmptySpace min="0" pref="74" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblMoles1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="resPorcentual" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblGramos1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="resMolalidad" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="lblSoluto" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="soluto" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblLitros1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="resMolaridad" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lblMoleculas1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="resNormalidad" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="lblSolvente" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="solvente" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="nuevo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
+                  <EmptySpace min="0" pref="18" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JLabel" name="lblLitros1">
-              <Properties>
-                <Property name="horizontalAlignment" type="int" value="4"/>
-                <Property name="text" type="java.lang.String" value="Molaridad:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="resMolaridad">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="000"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblGramos1">
-              <Properties>
-                <Property name="horizontalAlignment" type="int" value="4"/>
-                <Property name="text" type="java.lang.String" value="Molalidad:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="resMolalidad">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="000"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblMoleculas1">
-              <Properties>
-                <Property name="horizontalAlignment" type="int" value="4"/>
-                <Property name="text" type="java.lang.String" value="Normalidad:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="resNormalidad">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="000"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblMoles1">
-              <Properties>
-                <Property name="horizontalAlignment" type="int" value="4"/>
-                <Property name="text" type="java.lang.String" value="Porcentual:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="resPorcentual">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="000"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblSoluto">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Soluto"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JSpinner" name="soluto">
-              <Properties>
-                <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                  <SpinnerModel initial="0.0" minimum="0.0" numberType="java.lang.Double" stepSize="0.1" type="number"/>
-                </Property>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="lblSolvente">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Solvente"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JSpinner" name="solvente">
-              <Properties>
-                <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                  <SpinnerModel initial="0.0" minimum="0.0" numberType="java.lang.Double" stepSize="0.1" type="number"/>
-                </Property>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="nuevo">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="11" style="0"/>
-                </Property>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/quim/img/new.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Nuevo"/>
-                <Property name="focusable" type="boolean" value="false"/>
-                <Property name="horizontalTextPosition" type="int" value="0"/>
-                <Property name="verticalTextPosition" type="int" value="3"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nuevoActionPerformed"/>
-              </Events>
-            </Component>
-          </SubComponents>
         </Container>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="panelMolaridad">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder justification="2" title="Molalidad"/>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblSoluto1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblSolvente1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="solventeMolalidad" pref="89" max="32767" attributes="0"/>
+                              <Component id="solutoMolalidad" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="calculaMolalidad" alignment="0" max="32767" attributes="0"/>
+                          <Component id="resMolalidad1" alignment="0" pref="160" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblSoluto1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="solutoMolalidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="solventeMolalidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblSolvente1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="calculaMolalidad" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="resMolalidad1" min="-2" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="lblSoluto1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Soluto"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="solutoMolalidad">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="0.0" minimum="0.0" numberType="java.lang.Double" stepSize="0.1" type="number"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="solventeMolalidad">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="0.0" minimum="0.0" numberType="java.lang.Double" stepSize="0.1" type="number"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblSolvente1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Solvente"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="resMolalidad1">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="0000000.0000"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="calculaMolalidad">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Calcular"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="panelMolalidad">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder justification="2" title="Molaridad"/>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblSoluto" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblSolucion" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="solucionMolaridad" pref="88" max="32767" attributes="0"/>
+                              <Component id="solutoMolaridad" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="calculaMolaridad" alignment="0" max="32767" attributes="0"/>
+                          <Component id="resMolaridad" alignment="0" pref="160" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblSoluto" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="solutoMolaridad" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="solucionMolaridad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblSolucion" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="calculaMolaridad" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="resMolaridad" min="-2" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="lblSoluto">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Soluto"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="solutoMolaridad">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="0.0" minimum="0.0" numberType="java.lang.Double" stepSize="0.1" type="number"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="solucionMolaridad">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="0.0" minimum="0.0" numberType="java.lang.Double" stepSize="0.1" type="number"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblSolucion">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Solucion"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="resMolaridad">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="0000000.0000"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="calculaMolaridad">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Calcular"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="panelNormalidad">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder justification="2" title="Normalidad"/>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblSoluto2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblSolucion1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="solucionMolaridad1" alignment="0" pref="88" max="32767" attributes="0"/>
+                              <Component id="solutoMolaridad1" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="calculaNormalidad" alignment="0" max="32767" attributes="0"/>
+                          <Component id="resMolaridad1" alignment="0" pref="160" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblSoluto2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="solutoMolaridad1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="solucionMolaridad1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblSolucion1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="calculaNormalidad" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="12" max="32767" attributes="0"/>
+                  <Component id="resMolaridad1" min="-2" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="lblSoluto2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Soluto"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="solutoMolaridad1">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="0.0" minimum="0.0" numberType="java.lang.Double" stepSize="0.1" type="number"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="solucionMolaridad1">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="0.0" minimum="0.0" numberType="java.lang.Double" stepSize="0.1" type="number"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblSolucion1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Solucion"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="resMolaridad1">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="0000000.0000"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="calculaNormalidad">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Calcular"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

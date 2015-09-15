@@ -94,7 +94,6 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         setTitle("Cálculos Estequiométricos");
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(1250, 600));
-        setResizable(false);
 
         paneCompuestos.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
 
@@ -136,11 +135,11 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         panelOxigenados.setLayout(panelOxigenadosLayout);
         panelOxigenadosLayout.setHorizontalGroup(
             panelOxigenadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(toolBarOxi, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+            .addComponent(toolBarOxi, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
         );
         panelOxigenadosLayout.setVerticalGroup(
             panelOxigenadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(toolBarOxi, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+            .addComponent(toolBarOxi, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
         );
 
         paneBinarios.addTab("tab1", panelOxigenados);
@@ -193,7 +192,7 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         );
         panelHidrogenadosLayout.setVerticalGroup(
             panelHidrogenadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(toolBarHidro, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+            .addComponent(toolBarHidro, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
         );
 
         paneBinarios.addTab("tab2", panelHidrogenados);
@@ -220,7 +219,7 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         desktopBinarios.setLayout(desktopBinariosLayout);
         desktopBinariosLayout.setHorizontalGroup(
             desktopBinariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 911, Short.MAX_VALUE)
+            .addGap(0, 970, Short.MAX_VALUE)
         );
         desktopBinariosLayout.setVerticalGroup(
             desktopBinariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,7 +299,7 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         );
         panelCompuestosTernariosLayout.setVerticalGroup(
             panelCompuestosTernariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(toolBarTernarios, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+            .addComponent(toolBarTernarios, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
         );
 
         paneTernarios.addTab("tab1", panelCompuestosTernarios);
@@ -309,7 +308,7 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         desktopTernarios.setLayout(desktopTernariosLayout);
         desktopTernariosLayout.setHorizontalGroup(
             desktopTernariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 911, Short.MAX_VALUE)
+            .addGap(0, 970, Short.MAX_VALUE)
         );
         desktopTernariosLayout.setVerticalGroup(
             desktopTernariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -374,7 +373,7 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         );
         panelCompuestosTernarios1Layout.setVerticalGroup(
             panelCompuestosTernarios1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(toolBarCuaternarios, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+            .addComponent(toolBarCuaternarios, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
         );
 
         paneCuaternarios.addTab("tab1", panelCompuestosTernarios1);
@@ -383,7 +382,7 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         desktopCuaternarios.setLayout(desktopCuaternariosLayout);
         desktopCuaternariosLayout.setHorizontalGroup(
             desktopCuaternariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 911, Short.MAX_VALUE)
+            .addGap(0, 970, Short.MAX_VALUE)
         );
         desktopCuaternariosLayout.setVerticalGroup(
             desktopCuaternariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,13 +411,11 @@ public class EstequiometriaWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(paneCompuestos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1250, Short.MAX_VALUE)
+            .addComponent(paneCompuestos, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 21, Short.MAX_VALUE)
-                .addComponent(paneCompuestos, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(paneCompuestos, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
         );
 
         pack();
